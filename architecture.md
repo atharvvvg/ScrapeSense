@@ -38,7 +38,7 @@ The system will operate in a few key phases:
 ## II. File and Folder Structure
 
 ```
-/self_learning_scraper
+/ScrapeSense
 |
 |-- /scraper_core
 | |-- init.py
@@ -128,9 +128,9 @@ _ Manages API rate limits and error handling.
 _ **`dom_analyzer.py`**:
 _ Takes a (potentially simplified) DOM string, target data descriptions (e.g., "product title," "price"), and optionally old/broken selectors.
 _ Uses `prompt_templates` to construct effective prompts for Gemini.
-_ Example Prompt: "Given this HTML DOM, identify the CSS selector for the main product price. The price is usually near the product title and has a currency symbol. Old selector was 'span.price-old'. DOM: <simplified_dom_tree>"
-_ Parses Gemini's response to extract candidate selectors or extraction logic.
-_ **`prompt_templates.py`**: \* Stores and manages various prompt templates for different scenarios (initial selector generation, re-learning, DOM summarization).
+_ Example Prompt: "Given this HTML DOM, identify the CSS selector for the main product price. The price is usually near the product title and has a currency symbol. Old selector was 'span.price-old'. DOM: <simplified*dom_tree>"
+* Parses Gemini's response to extract candidate selectors or extraction logic.
+\_ **`prompt_templates.py`**: \* Stores and manages various prompt templates for different scenarios (initial selector generation, re-learning, DOM summarization).
 
 **3. `/relearning_manager`**
 _ **`manager.py`**:

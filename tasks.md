@@ -16,23 +16,23 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
 
 ### 1. Task 1: Project Skeleton and Virtual Environment
 *   **Concern:** Initialize project structure according to `architecture.md` and manage dependencies.
-*   **Start:** No project directory.
+*   **Start:** In empty project directory /ScrapeSense.
 *   **Action:**
-    *   Create the main project folder: `/self_learning_scraper`.
+    *   You are currently inside the root project directory /ScrapeSense (which contains architecture.md and tasks.md for now).
     *   Inside, create a Python virtual environment (e.g., `python -m venv .venv` and ensure it's activated for subsequent tasks).
     *   Create an empty `requirements.txt` at the root.
     *   Create the following folders, each with an empty `__init__.py` file:
-        *   `/self_learning_scraper/scraper_core/`
-        *   `/self_learning_scraper/llm_adapter/`
-        *   `/self_learning_scraper/relearning_manager/` (empty for MVP logic)
-        *   `/self_learning_scraper/rl_agent/` (empty for MVP)
-        *   `/self_learning_scraper/database/`
-        *   `/self_learning_scraper/orchestration/` (empty for MVP)
-        *   `/self_learning_scraper/api/` (empty for MVP)
-        *   `/self_learning_scraper/config/`
-        *   `/self_learning_scraper/utils/`
-        *   `/self_learning_scraper/logs/` (empty)
-        *   `/self_learning_scraper/data/` (empty)
+        *   `/ScrapeSense/scraper_core/`
+        *   `/ScrapeSense/llm_adapter/`
+        *   `/ScrapeSense/relearning_manager/` (empty for MVP logic)
+        *   `/ScrapeSense/rl_agent/` (empty for MVP)
+        *   `/ScrapeSense/database/`
+        *   `/ScrapeSense/orchestration/` (empty for MVP)
+        *   `/ScrapeSense/api/` (empty for MVP)
+        *   `/ScrapeSense/config/`
+        *   `/ScrapeSense/utils/`
+        *   `/ScrapeSense/logs/` (empty)
+        *   `/ScrapeSense/data/` (empty)
     *   Create an empty `README.md` at the root.
 *   **End:** Project folder structure as per `architecture.md` exists with `__init__.py` files and an active venv. `requirements.txt` is empty.
 *   **Test:** Venv can be activated. Listing the directory shows the specified structure.
@@ -41,13 +41,13 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
 *   **Concern:** Setup web browser automation and a utility to fetch DOM.
 *   **Start:** `requirements.txt` is empty. `scraper_core/browser_manager.py` does not exist.
 *   **Action:**
-    *   Add `playwright` to `/self_learning_scraper/requirements.txt`.
+    *   Add `playwright` to `/ScrapeSense/requirements.txt`.
     *   Instruct to run `pip install -r requirements.txt`.
     *   Instruct to run `playwright install` (to install browser drivers).
-    *   Create `/self_learning_scraper/scraper_core/browser_manager.py`.
+    *   Create `/ScrapeSense/scraper_core/browser_manager.py`.
     *   In `browser_manager.py`, define a function `async def get_page_dom(url: str) -> str`:
         ```python
-        # /self_learning_scraper/scraper_core/browser_manager.py
+        # /ScrapeSense/scraper_core/browser_manager.py
         from playwright.async_api import async_playwright
 
         async def get_page_dom(url: str) -> str:
@@ -64,7 +64,7 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
     ```python
     # test_browser.py (temporary test script)
     # import asyncio
-    # from self_learning_scraper.scraper_core.browser_manager import get_page_dom
+    # from ScrapeSense.scraper_core.browser_manager import get_page_dom
 
     # async def main():
     #     html_content = await get_page_dom("http://example.com")
@@ -78,19 +78,19 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
 *   **Concern:** Specifying what to scrape for the initial manual test.
 *   **Start:** No specific target defined for testing.
 *   **Action:**
-    *   Create a local static HTML file named `test_page.html` in the `/self_learning_scraper/data/` directory:
+    *   Create a local static HTML file named `test_page.html` in the `/ScrapeSense/data/` directory:
         ```html
-        <!-- /self_learning_scraper/data/test_page.html -->
+        <!-- /ScrapeSense/data/test_page.html -->
         <!DOCTYPE html><html><head><title>Test Page</title></head>
         <body><h1>My MVP Product Title</h1><p>Some description.</p>
         <span class="price">$29.99</span></body></html>
         ```
-    *   Create a script named `/self_learning_scraper/run_manual_scrape_v1.py`.
+    *   Create a script named `/ScrapeSense/run_manual_scrape_v1.py`.
     *   In `run_manual_scrape_v1.py`, define:
         ```python
-        # /self_learning_scraper/run_manual_scrape_v1.py
+        # /ScrapeSense/run_manual_scrape_v1.py
         # Note: The Engineer LLM must replace "/full/path/to/" with the correct absolute path
-        TARGET_URL = "file:///full/path/to/self_learning_scraper/data/test_page.html"
+        TARGET_URL = "file:///full/path/to/ScrapeSense/data/test_page.html"
         TARGET_FIELD_DESCRIPTION_MVP = "The main H1 title of the product"
         INITIAL_SELECTOR_MVP = "h1"
         ```
@@ -101,11 +101,11 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
 *   **Concern:** Extracting data from DOM using a selector.
 *   **Start:** `scraper_core/extraction_engine.py` does not exist. `parsel` not installed.
 *   **Action:**
-    *   Add `parsel` to `/self_learning_scraper/requirements.txt` and instruct to run `pip install -r requirements.txt`.
-    *   Create `/self_learning_scraper/scraper_core/extraction_engine.py`.
+    *   Add `parsel` to `/ScrapeSense/requirements.txt` and instruct to run `pip install -r requirements.txt`.
+    *   Create `/ScrapeSense/scraper_core/extraction_engine.py`.
     *   In `extraction_engine.py`, define a function `extract_data_with_selector(html_dom: str, selector: str) -> Optional[str]`:
         ```python
-        # /self_learning_scraper/scraper_core/extraction_engine.py
+        # /ScrapeSense/scraper_core/extraction_engine.py
         from typing import Optional
         import parsel
 
@@ -128,15 +128,15 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
 *   **Concern:** Combining DOM fetching and extraction for the hardcoded target.
 *   **Start:** `run_manual_scrape_v1.py` has constants.
 *   **Action:**
-    *   Complete `/self_learning_scraper/run_manual_scrape_v1.py`:
+    *   Complete `/ScrapeSense/run_manual_scrape_v1.py`:
         ```python
-        # /self_learning_scraper/run_manual_scrape_v1.py
+        # /ScrapeSense/run_manual_scrape_v1.py
         import asyncio
-        from self_learning_scraper.scraper_core.browser_manager import get_page_dom
-        from self_learning_scraper.scraper_core.extraction_engine import extract_data_with_selector
+        from ScrapeSense.scraper_core.browser_manager import get_page_dom
+        from ScrapeSense.scraper_core.extraction_engine import extract_data_with_selector
 
         # Note: The Engineer LLM must replace "/full/path/to/" with the correct absolute path
-        TARGET_URL = "file:///full/path/to/self_learning_scraper/data/test_page.html"
+        TARGET_URL = "file:///full/path/to/ScrapeSense/data/test_page.html"
         TARGET_FIELD_DESCRIPTION_MVP = "The main H1 title of the product"
         INITIAL_SELECTOR_MVP = "h1"
 
@@ -157,7 +157,7 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
             asyncio.run(main())
         ```
 *   **End:** `run_manual_scrape_v1.py` can be run to scrape the target.
-*   **Test:** Run `python self_learning_scraper/run_manual_scrape_v1.py`. It should print "Extracted data for 'The main H1 title of the product': My MVP Product Title".
+*   **Test:** Run `python ScrapeSense/run_manual_scrape_v1.py`. It should print "Extracted data for 'The main H1 title of the product': My MVP Product Title".
 
 ---
 ## Phase 2: MongoDB for Configuration
@@ -166,22 +166,22 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
 *   **Concern:** Database connection setup.
 *   **Start:** No MongoDB interaction files. `pymongo` not installed.
 *   **Action:**
-    *   Add `pymongo` (or `pymongo[srv]` if using Atlas) to `/self_learning_scraper/requirements.txt` and instruct to run `pip install -r requirements.txt`.
-    *   Create `/self_learning_scraper/config/settings.py`. Add:
+    *   Add `pymongo` (or `pymongo[srv]` if using Atlas) to `/ScrapeSense/requirements.txt` and instruct to run `pip install -r requirements.txt`.
+    *   Create `/ScrapeSense/config/settings.py`. Add:
         ```python
-        # /self_learning_scraper/config/settings.py
+        # /ScrapeSense/config/settings.py
         import os
 
         MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
-        DATABASE_NAME = "self_learning_scraper_db_mvp" # Specific for MVP
+        DATABASE_NAME = "ScrapeSense_db_mvp" # Specific for MVP
         ```
-    *   Create `/self_learning_scraper/database/mongo_client.py`.
+    *   Create `/ScrapeSense/database/mongo_client.py`.
     *   In `mongo_client.py`, import `MongoClient` from `pymongo` and `MONGO_URI`, `DATABASE_NAME` from `config.settings`.
         ```python
-        # /self_learning_scraper/database/mongo_client.py
+        # /ScrapeSense/database/mongo_client.py
         from pymongo import MongoClient
         from pymongo.database import Database
-        from self_learning_scraper.config import settings # Adjusted import
+        from ScrapeSense.config import settings # Adjusted import
 
         _client: Optional[MongoClient] = None
 
@@ -198,11 +198,11 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
 *   **Concern:** Defining the structure for storing scraping target configuration, as per `architecture.md`.
 *   **Start:** `database/schemas.py` does not exist. `pydantic` not installed.
 *   **Action:**
-    *   Add `pydantic` to `/self_learning_scraper/requirements.txt` and instruct to run `pip install -r requirements.txt`.
-    *   Create `/self_learning_scraper/database/schemas.py`.
+    *   Add `pydantic` to `/ScrapeSense/requirements.txt` and instruct to run `pip install -r requirements.txt`.
+    *   Create `/ScrapeSense/database/schemas.py`.
     *   Define Pydantic models:
         ```python
-        # /self_learning_scraper/database/schemas.py
+        # /ScrapeSense/database/schemas.py
         from typing import List, Optional
         from pydantic import BaseModel, Field
         # from datetime import datetime # Not used in MVP schema yet
@@ -231,16 +231,16 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
 *   **Concern:** Persisting initial scraping target config.
 *   **Start:** MongoDB is empty or has no relevant data for this MVP.
 *   **Action:**
-    *   Create a script `/self_learning_scraper/scripts/setup_initial_config.py`.
+    *   Create a script `/ScrapeSense/scripts/setup_initial_config.py`.
     *   In this script:
         ```python
-        # /self_learning_scraper/scripts/setup_initial_config.py
-        from self_learning_scraper.database.mongo_client import get_db_connection
-        from self_learning_scraper.database.schemas import ScrapingTarget, FieldToExtract
+        # /ScrapeSense/scripts/setup_initial_config.py
+        from ScrapeSense.database.mongo_client import get_db_connection
+        from ScrapeSense.database.schemas import ScrapingTarget, FieldToExtract
 
         # Note: The Engineer LLM must replace "/full/path/to/" with the correct absolute path
         MVP_TARGET_ID = "mvp_test_page"
-        MVP_TARGET_URL = "file:///full/path/to/self_learning_scraper/data/test_page.html"
+        MVP_TARGET_URL = "file:///full/path/to/ScrapeSense/data/test_page.html"
 
         def setup_config():
             db = get_db_connection()
@@ -274,21 +274,21 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
             setup_config()
         ```
 *   **End:** `targets` collection in MongoDB contains one document matching the `ScrapingTarget` schema.
-*   **Test:** Run `python self_learning_scraper/scripts/setup_initial_config.py`. Verify the document in MongoDB using a GUI or shell. Check structure and values, especially `_id`.
+*   **Test:** Run `python ScrapeSense/scripts/setup_initial_config.py`. Verify the document in MongoDB using a GUI or shell. Check structure and values, especially `_id`.
 
 ### 9. Task 9: Scraper Reads Configuration from MongoDB (`run_dynamic_scrape_v1.py`)
 *   **Concern:** Decoupling scraper logic from hardcoded config.
 *   **Start:** `run_manual_scrape_v1.py` uses hardcoded config.
 *   **Action:**
-    *   Create `/self_learning_scraper/run_dynamic_scrape_v1.py`.
+    *   Create `/ScrapeSense/run_dynamic_scrape_v1.py`.
     *   In this script:
         ```python
-        # /self_learning_scraper/run_dynamic_scrape_v1.py
+        # /ScrapeSense/run_dynamic_scrape_v1.py
         import asyncio
-        from self_learning_scraper.database.mongo_client import get_db_connection
-        from self_learning_scraper.database.schemas import ScrapingTarget
-        from self_learning_scraper.scraper_core.browser_manager import get_page_dom
-        from self_learning_scraper.scraper_core.extraction_engine import extract_data_with_selector
+        from ScrapeSense.database.mongo_client import get_db_connection
+        from ScrapeSense.database.schemas import ScrapingTarget
+        from ScrapeSense.scraper_core.browser_manager import get_page_dom
+        from ScrapeSense.scraper_core.extraction_engine import extract_data_with_selector
 
         MVP_TARGET_ID = "mvp_test_page"
 
@@ -337,10 +337,10 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
         ```
 *   **End:** `run_dynamic_scrape_v1.py` scrapes based on MongoDB config.
 *   **Test:**
-    1.  Run `python self_learning_scraper/scripts/setup_initial_config.py` to ensure config is correct with selector "h1".
-    2.  Run `python self_learning_scraper/run_dynamic_scrape_v1.py`. It should print "My MVP Product Title".
+    1.  Run `python ScrapeSense/scripts/setup_initial_config.py` to ensure config is correct with selector "h1".
+    2.  Run `python ScrapeSense/run_dynamic_scrape_v1.py`. It should print "My MVP Product Title".
     3.  Manually change `current_selector` in MongoDB for the `mvp_test_page` target's first field to "h2" (an invalid selector for the title).
-    4.  Re-run `python self_learning_scraper/run_dynamic_scrape_v1.py`. It should print "Data not found using selector 'h2'".
+    4.  Re-run `python ScrapeSense/run_dynamic_scrape_v1.py`. It should print "Data not found using selector 'h2'".
     5.  Change selector back to "h1" in MongoDB.
 
 ---
@@ -350,22 +350,22 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
 *   **Concern:** Basic communication with Gemini API.
 *   **Start:** No LLM interaction. `google-generativeai` not installed.
 *   **Action:**
-    *   Add `google-generativeai` to `/self_learning_scraper/requirements.txt` and instruct to run `pip install -r requirements.txt`.
-    *   In `/self_learning_scraper/config/settings.py`, add:
+    *   Add `google-generativeai` to `/ScrapeSense/requirements.txt` and instruct to run `pip install -r requirements.txt`.
+    *   In `/ScrapeSense/config/settings.py`, add:
         ```python
-        # /self_learning_scraper/config/settings.py
+        # /ScrapeSense/config/settings.py
         # ... (MONGO_URI, DATABASE_NAME already exist)
         GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
         LLM_MODEL_NAME = os.getenv("LLM_MODEL_NAME", "gemini-pro") 
         ```
         (Engineer LLM will need to ensure `GEMINI_API_KEY` environment variable is set).
-    *   Create `/self_learning_scraper/llm_adapter/gemini_client.py`.
+    *   Create `/ScrapeSense/llm_adapter/gemini_client.py`.
     *   In `gemini_client.py`:
         ```python
-        # /self_learning_scraper/llm_adapter/gemini_client.py
+        # /ScrapeSense/llm_adapter/gemini_client.py
         from typing import Optional
         import google.generativeai as genai
-        from self_learning_scraper.config import settings
+        from ScrapeSense.config import settings
 
         def get_llm_suggestion(prompt: str) -> Optional[str]:
             if not settings.GEMINI_API_KEY:
@@ -395,10 +395,10 @@ Scrape a *single, predefined data point* (e.g., "product title") from a *single,
 *   **Concern:** Structuring the request to the LLM.
 *   **Start:** No prompt defined for selector generation.
 *   **Action:**
-    *   Create `/self_learning_scraper/llm_adapter/prompt_templates.py`.
+    *   Create `/ScrapeSense/llm_adapter/prompt_templates.py`.
     *   Define a function `get_selector_suggestion_prompt(html_dom_segment: str, field_description: str) -> str`:
         ```python
-        # /self_learning_scraper/llm_adapter/prompt_templates.py
+        # /ScrapeSense/llm_adapter/prompt_templates.py
         def get_selector_suggestion_prompt(html_dom_segment: str, field_description: str) -> str:
             # For MVP, keep DOM simplification minimal or send a relevant chunk.
             # A more robust version would simplify the DOM significantly.
@@ -423,10 +423,10 @@ If you cannot determine a selector, return "NO_SELECTOR_FOUND".
 *   **Concern:** Combining prompt generation and LLM call for selector suggestion.
 *   **Start:** `llm_adapter/dom_analyzer.py` does not exist.
 *   **Action:**
-    *   Create `/self_learning_scraper/llm_adapter/dom_analyzer.py`.
+    *   Create `/ScrapeSense/llm_adapter/dom_analyzer.py`.
     *   In `dom_analyzer.py`:
         ```python
-        # /self_learning_scraper/llm_adapter/dom_analyzer.py
+        # /ScrapeSense/llm_adapter/dom_analyzer.py
         from typing import Optional
         from .prompt_templates import get_selector_suggestion_prompt
         from .gemini_client import get_llm_suggestion
@@ -462,9 +462,9 @@ If you cannot determine a selector, return "NO_SELECTOR_FOUND".
 *   **Concern:** Identifying when the current selector fails and updating the `is_broken` status in MongoDB.
 *   **Start:** `run_dynamic_scrape_v1.py` just prints if data not found.
 *   **Action:**
-    *   Modify `/self_learning_scraper/run_dynamic_scrape_v1.py` (additions marked):
+    *   Modify `/ScrapeSense/run_dynamic_scrape_v1.py` (additions marked):
         ```python
-        # /self_learning_scraper/run_dynamic_scrape_v1.py
+        # /ScrapeSense/run_dynamic_scrape_v1.py
         # ... (imports and MVP_TARGET_ID remain the same)
 
         async def main():
@@ -535,15 +535,15 @@ If you cannot determine a selector, return "NO_SELECTOR_FOUND".
 *   **Concern:** A script to initiate the LLM-guided re-learning for a target marked as broken.
 *   **Start:** No re-learning trigger script.
 *   **Action:**
-    *   Create `/self_learning_scraper/scripts/manual_relearn_trigger.py`.
+    *   Create `/ScrapeSense/scripts/manual_relearn_trigger.py`.
     *   In this script:
         ```python
-        # /self_learning_scraper/scripts/manual_relearn_trigger.py
+        # /ScrapeSense/scripts/manual_relearn_trigger.py
         import asyncio
-        from self_learning_scraper.database.mongo_client import get_db_connection
-        from self_learning_scraper.database.schemas import ScrapingTarget
-        from self_learning_scraper.scraper_core.browser_manager import get_page_dom
-        from self_learning_scraper.llm_adapter.dom_analyzer import suggest_new_selector_from_dom
+        from ScrapeSense.database.mongo_client import get_db_connection
+        from ScrapeSense.database.schemas import ScrapingTarget
+        from ScrapeSense.scraper_core.browser_manager import get_page_dom
+        from ScrapeSense.llm_adapter.dom_analyzer import suggest_new_selector_from_dom
 
         MVP_TARGET_ID = "mvp_test_page"
 
@@ -598,7 +598,7 @@ If you cannot determine a selector, return "NO_SELECTOR_FOUND".
 *   **End:** `manual_relearn_trigger.py` can be run to get a selector suggestion for a broken target.
 *   **Test:**
     1.  Ensure `mvp_test_page` in MongoDB has `is_broken: True` and an invalid selector (e.g., run `run_dynamic_scrape_v1.py` after setting an invalid selector, which will mark it broken).
-    2.  Run `python self_learning_scraper/scripts/manual_relearn_trigger.py`.
+    2.  Run `python ScrapeSense/scripts/manual_relearn_trigger.py`.
     3.  It should fetch the DOM, call Gemini, print a suggested selector (hopefully "h1" or similar for `test_page.html`), and provide instructions for manual update.
 
 ### 15. Task 15: Final Manual Update and Verification Cycle
@@ -607,10 +607,10 @@ If you cannot determine a selector, return "NO_SELECTOR_FOUND".
 *   **Action (Developer/Tester - Not a script for the LLM Engineer):**
     1.  Observe the `new_selector_suggestion` printed by `scripts/manual_relearn_trigger.py`.
     2.  **Manually** open MongoDB (using a GUI or shell like `mongosh`).
-    3.  Find the `mvp_test_page` document in the `targets` collection of the `self_learning_scraper_db_mvp` database.
+    3.  Find the `mvp_test_page` document in the `targets` collection of the `ScrapeSense_db_mvp` database.
     4.  Update the `fields[0].current_selector` with the `new_selector_suggestion` (e.g., "h1").
     5.  Update the root `is_broken` field for the document to `false`.
     6.  Save changes in MongoDB.
-    7.  Re-run `/self_learning_scraper/run_dynamic_scrape_v1.py`.
+    7.  Re-run `/ScrapeSense/run_dynamic_scrape_v1.py`.
 *   **End:** The `run_dynamic_scrape_v1.py` script works again using the LLM-suggested selector and updates `is_broken` to `False` (if it was previously true) on successful scrape.
 *   **Test:** `run_dynamic_scrape_v1.py` should now successfully extract and print "My MVP Product Title". The `is_broken` flag for `mvp_test_page` in MongoDB should be `false`.
