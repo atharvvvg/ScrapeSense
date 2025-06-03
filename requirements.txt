@@ -1,2 +1,3 @@
 # Python dependencies will be added here
-playwright 
+playwright
+parsel 
