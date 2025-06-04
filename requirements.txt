@@ -1,4 +1,5 @@
 # Python dependencies will be added here
 playwright
 parsel
-pymongo 
+pymongo
+pydantic 
